@@ -34,11 +34,11 @@ class Swearjar
     scorecard
   end
 
-  def censor(string)
+  def censor(string, replace_with='*')
     censored_string = string.to_s.dup
     scan(string) do |test, word, position|
       next unless test
-      replacement = block_given? ? yield(word) : word.gsub(/\S/, '*')
+      replacement = block_given? ? yield(word) : word.gsub(/\S/, replace_with)
       censored_string[position, word.size] = replacement
     end
     censored_string
